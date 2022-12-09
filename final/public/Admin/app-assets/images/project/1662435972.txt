@@ -1,0 +1,22 @@
+create (Signup:signup{id:1,name:"abc",lastname:"xyz",email:"s@gmail.com"})return Signup //U creation
+create (U:User{id:2,name:"abc",lastname:"xyz",email:"a@gmail.com"})return U
+create (U1:User1{id:1,name:"ABC",lastname:"XYZ",email:"b@gmail.com"})return U1
+
+
+match (a:signup),(b:signup)where a.id=1 and b.id=2 create (a)-[r:friends]->(b)return a,b //two user relation 
+create (u:comment{cid:1})return u  //
+match(a:signup),(b:comment) where a.id=1 and b.cid=1 create (a)-[r:comment{commnet:"hello"}]->(b)return a,b //
+match(a:signup),(b:comment) where a.id=1 and b.cid=1 create (a)-[r:comment{commnet:"hello"}]->(b)return a,b//
+create (u:post{pid:1,post:"birthday"})return u//
+
+match (a:User),(b:User1) where a.name="abc" and b.name="ABC"  create (a)-[r:friends{relation:"bestfriends"}]->(b)return a,b //user ralation
+match (a:signup),(b:User1) where a.id=1 and b.name="abc" create (a)-[r:user_create]->(b) return a,b //relation connect
+match (a:signup),(b:User2) where a.id=1 and b.name="ABC" create (a)-[r:user1_create]->(b) return a,b  //relatiion connect
+create(User:post{pid:1})return User//post
+match (a:User),(b:post) where a.id=1 and b.pid=1 create (a)-[r:userpost{post:"birthday"}]->(b)return a,b //relation post
+match (a:User1),(b:post) where a.id=1 and b.pid=1 create (a)-[r:userpost{post:"Happy"}]->(b)return a,b //second post ralation
+match (a:User),(b:follow) where a.id=1 and b.fid=1 create (a)-[r:userfollow]->(b)return a,b
+create (User:comment{cid:1,name:"Comment"})return User
+match (a:User1),(b:comment)where a.id=1 and b.cid=1 create (a)-[r:Commenton{commt:"Happy birthday"}]->(b)return a,b
+match (a:mainpage),(b:follow)where a.mpid=1 and b.fid=1 create (a)-[r:feedpage{feed:"Happy birthday"}]->(b)return a,b
+match (a:mainpage),(b:post)where a.mpid=1 and b.pid=1 create (a)-[r:feedpageofpost]->(b)return a,b
